@@ -4,7 +4,7 @@ input = sys.stdin.readline
 
 def move_pipe():
     global count
-    Q = deque()
+    Q = []
     Q.append((0,1,0))
     if pipeline[N-1][N-1] == 1:
         return
