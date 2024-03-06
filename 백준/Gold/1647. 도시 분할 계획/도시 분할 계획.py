@@ -1,49 +1,40 @@
-import heapq
 import sys
+import heapq
 input = sys.stdin.readline
 
-def prim(dic):
-    primedlist = []
+def prim():
+    ans = []
+    start = list(graph.keys())[0]
+    h = []
     visited = [False] * (N+1)
-    start_node = list(dic.keys())[0]
-    visited[start_node] = True
-    quelist = [(cost ,end_node) for end_node, cost in dic[start_node]]
-    heapq.heapify(quelist)
-
-    while quelist:
-        cost, end_node = heapq.heappop(quelist)
-        if not visited[end_node]:
-            visited[end_node] = True
-            primedlist.append(cost)
-
-            if end_node in dic:
-                for next_end , next_cost in dic[end_node]:
-                    if not visited[next_end]:
-                        heapq.heappush(quelist,(next_cost,next_end))
-    return primedlist
-
+    for i in graph[start]:
+        h.append(i)
+    heapq.heapify(h)
+    visited[start] = True
+    while h:
+        cost, next_node = heapq.heappop(h)
+        if visited[next_node]:
+            continue
+        visited[next_node] = True
+        ans.append(cost)
+        for wt, nn in graph[next_node]:
+            if not visited[nn]:
+                heapq.heappush(h,(wt,nn))
+    print(sum(ans)-max(ans))
 
 N, M = map(int,input().split())
-dicvilla = {}
-ans = []
 
+INF = 2147483648
+graph = {}
+
+weight = [[INF] for _ in range(N+1)]
 for _ in range(M):
     a,b,c = map(int,input().split())
-    if M == 1:
-       break
-    if a not in dicvilla:
-        dicvilla[a] = []
-    if b not in dicvilla:
-        dicvilla[b] = []
-    dicvilla[a].append((b,c))
-    dicvilla[b].append((a,c))
+    if a not in graph:
+        graph[a] = []
+    if b not in graph:
+        graph[b] = []
+    graph[a].append((c,b))
+    graph[b].append((c,a))
 
-answer = 0
-if M != 1:
-    a= prim(dicvilla)
-    answer = sum(a) - max(a)
-
-
-print(answer)
-
-
+prim()
