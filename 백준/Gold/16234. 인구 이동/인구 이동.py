@@ -8,10 +8,11 @@ def move_country():
     global end,count
     stoped = True
     visited = [[-1]*N for _ in range(N)]
-    weight = [[0]*2 for _ in range((N+1)*(N+1)*4)]
+    weight = [[0]*2 for _ in range((N)*(N)*4)]
     q = deque()
     q.append((0,0,0))
     numcount = 0
+
 
     while q:
         s1,s2,country_num = q.popleft()
@@ -29,11 +30,11 @@ def move_country():
                     q.appendleft((ni,nj,country_num))
                 else:
                     if visited[ni][nj] == -1:
-                        numcount +=1
+                        numcount += 1
                         q.append((ni,nj,numcount))
     for i in range(N):
         for j in range(N):
-            if weight[visited[i][j]][1] >1:
+            if weight[visited[i][j]][1] > 1:
                 countries[i][j] = weight[visited[i][j]][0] // weight[visited[i][j]][1]
                 stoped = False
     if stoped:
