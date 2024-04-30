@@ -1,54 +1,47 @@
 import heapq
 import sys
 input = sys.stdin.readline
-def prim(node):
-    route =[]
-    visited = [False] * (N+1)
-    startnode = list(nodeinfo.keys())[0]
-    edges = [(cost,next_node) for cost,next_node in node[startnode]]
-    heapq.heapify(edges)
-    visited[startnode] = True
+# 5 7
+# M W W W M
+# 1 2 12
+# 1 3 10
+# 4 2 5
+# 5 2 5
+# 2 5 10
+# 3 4 3
+# 5 4 7
+def prim():
+    h = []
+    heapq.heapify(h)
+    visited = [INF] * N
+    heapq.heappush(h,(0,0))
 
-    while edges:
-        cost, end_node = heapq.heappop(edges)
-        if not visited[end_node]:
-            visited[end_node] = True
-            route.append(cost)
+    while h:
+        cost, now = heapq.heappop(h)
+        if visited[now] != INF:
+            continue
+        visited[now] = cost
+        for i in road_info[now]:
+            if visited[i[0]] == INF:
+                heapq.heappush(h,(i[1],i[0]))
 
-            for cost, next_node in node[end_node]:
-                if not visited[next_node]:
-                    heapq.heappush(edges,(cost,next_node))
+    for i in range(1,N):
+        if visited[i] == INF:
+            print(-1)
+            return
+    print(sum(visited))
 
-    if sum(route) == 0:
-        print(-1)
-        return
-    count = 0
-    for i in visited:
-        if i == True:
-            count +=1
-    if count == N:
-        print(sum(route))
-    else:
-        print(-1)
-    return
 
 N, M = map(int,input().split())
-
 uni = list(map(str,input().split()))
-university = [0]
-for i in uni:
-    university.append(i)
-
-nodeinfo = {}
+INF = 1e9
+road_info = [[] for _ in range(N)]
 
 for i in range(M):
-    a,b,c = map(int,input().split())
-    if a not in nodeinfo:
-        nodeinfo[a] = []
-    if b not in nodeinfo:
-        nodeinfo[b] = []
-    if university[a] != university[b]:
-        nodeinfo[a].append((c,b))
-        nodeinfo[b].append((c,a))
+    s,e,c = map(int,input().split())
+    if uni[s-1] == uni[e-1]:
+        continue
+    road_info[s-1].append((e-1,c))
+    road_info[e-1].append((s-1,c))
 
-prim(nodeinfo)
+prim()
