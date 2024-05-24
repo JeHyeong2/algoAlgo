@@ -2,23 +2,22 @@ function solution(k, n, reqs) {
     let answer = 0;
     const client = new Array(k+1).fill(0).map(()=>[])     
     
-   
+    
     const wasteCheck = (arr,man) => {
       let time = 0
       const table = new Array(man).fill(0).map(()=>0)
       let pointer = 0
       const f1 = () =>{
-        let tmp = table[0] - arr[pointer][0]
         table.shift()
         table.push(arr[pointer][0] + arr[pointer][1])
         pointer += 1
         table.sort((a,b)=>(a-b))
       }
       const f2 = ()=>{
-        let tmp = table[0] - arr[pointer][0]
+        let tmp = table[0] - arr[pointer][0]  
         time += table[0] - arr[pointer][0]                 
         table.shift()
-        table.push(arr[pointer][0] + arr[pointer][1]+tmp)
+        table.push(arr[pointer][0] + arr[pointer][1]+ tmp)
          pointer += 1
          table.sort((a,b)=>a-b)
       }
@@ -32,10 +31,11 @@ function solution(k, n, reqs) {
      }
    
     
-
+  
   for(let i = 0 ; i < reqs.length; i++){
       client[reqs[i][2]].push(reqs[i])
     }
+  
   const mentoNum = new Array(k+1).fill(1)
   let mento = n - k
   while(mento){
