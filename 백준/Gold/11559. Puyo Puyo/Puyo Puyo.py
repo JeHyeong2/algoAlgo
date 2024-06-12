@@ -48,7 +48,6 @@ buyo_buyo = True
 for i in range(M):
     for j in range(N-1,-1,-1):
         game[i].append(filed[j][i])
-
 while buyo_buyo:
     buyo_check()
 print(ans)
