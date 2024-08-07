@@ -1,11 +1,13 @@
 import sys
+from collections import deque
 input = sys.stdin.readline
 
 def bfs():
-    q = [(0,0)]
+    q = deque()
+    q.append((0,0))
     visited[0][0] = 1
     while q:
-        s1,s2 = q.pop()
+        s1,s2 = q.popleft()
         for k in range(4):
             ni = s1 + di[k]
             nj = s2 + dj[k]
