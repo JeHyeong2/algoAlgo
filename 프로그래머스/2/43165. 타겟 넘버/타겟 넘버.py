@@ -26,6 +26,6 @@ def solution(numbers, target):
             
         return ans
    
-            
+
     
     return make_deal()
