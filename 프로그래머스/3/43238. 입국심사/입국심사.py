@@ -1,19 +1,24 @@
 def solution(n, times):
+    # n 명 입국심사
+    # 심사관이 걸리는 시간 times 
+    start , end = 1, max(times)*n
     ans = 0
     
-    start , end = 1, max(times) * n
-    
     while start < end:
-        mid = (start+end) // 2 
-        people = 0
+        mid = (start + end) // 2
         
-        for time in times:
-            people += (mid//time)
+        count = 0
+        for i in times:
+            count += mid//i
         
-        if people >= n:
+        
+        if count >= n:
             end = mid
         else:
-            start = mid + 1 
+            start = mid + 1
+        ans = start
+            
+            
+            
     
-    
-    return start
+    return ans
