@@ -15,19 +15,18 @@ def solution(n, edge):
             edge_info[i[1]].append(i[0])
             
     
-    weight = [1000000]*(n+1)
-    weight[1] = 0
-    weight[0] = -1
+    weight = [-1]*(n+1)
+    weight[1] = 0 
     dq = deque()
-    dq.append((1,0))
+    dq.append(1)
     
     while dq:
-        node,count = dq.popleft()
+        node = dq.popleft()
         
         for next_node in edge_info[node]:
-            if (count + 1) < weight[next_node]:
-                weight[next_node] = count+1
-                dq.append((next_node,count+1))
+            if weight[next_node] == -1:
+                weight[next_node] = weight[node] + 1
+                dq.append((next_node))
             else:
                 continue
     
