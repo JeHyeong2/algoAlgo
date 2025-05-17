@@ -1,36 +1,24 @@
 def solution(distance, rocks, n):
-	# 커트라인 최솟값 = 1
-    left = 1
-    # 커트라인 최댓값 = distance
-    right = distance
+    rocks = sorted(rocks) + [distance]
+    start,end = 1, distance
+    # m 이상의 거리를 유지하며 바위를 n 개 제거할 수 있는가?
     
-    # 바위 위치를 정렬하고, 도착지점 append
-    rocks.sort()
-    rocks.append(distance)
+    while start <= end:
     
-    while left <= right:
-        mid = (left+right)//2
-        # 제거한 바위 개수
-        delete = 0
-        # 이전 바위의 위치
-        prev_rock = 0
-        for rock in rocks:
-            dist = rock - prev_rock
-            # 거리가 커트라인 보다 작다면, 바위를 제거
-            if dist < mid:
-                delete += 1
-                # 제거한 바위가 너무 많다면 break
-                if delete > n:
-                    break
-            # 바위를 제거하지 않았다면, prev_rock을 갱신
+        m = (start + end) //2
+        now = 0
+        broke = 0
+        for i in range(len(rocks)):
+            if rocks[i] - now < m:
+                broke += 1
             else:
-                prev_rock = rock
-                
-        # 초과 제거한 경우 : 커트라인이 너무 높음
-        if delete > n:
-            right = mid -1
-        # 이하 제거한 경우 : 커트라인이 적절하거나 너무 낮음
+                now = rocks[i]
+        if broke > n:
+            end = m - 1
         else:
-            answer = mid
-            left = mid + 1
+            answer = m
+            start = m + 1 
+
+    
+    
     return answer

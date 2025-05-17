@@ -1,10 +1,10 @@
 # [level 4] 징검다리 - 43236 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43236) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43236?language=python3) 
 
 ### 성능 요약
 
-메모리: 12.2 MB, 시간: 144.97 ms
+메모리: 11.7 MB, 시간: 159.92 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 11월 02일 01:33:14
+2025년 05월 18일 01:10:41
 
 ### 문제 설명
 
